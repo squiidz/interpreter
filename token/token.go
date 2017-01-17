@@ -12,6 +12,7 @@ const (
 	EOF     = "EOF"
 	IDENT   = "IDENT"
 	INT     = "INT"
+	STRING  = "STRING"
 
 	// Operators
 	ASSIGN   = "="
@@ -29,6 +30,8 @@ const (
 	RPAREN    = ")"
 	LBRACE    = "{"
 	RBRACE    = "}"
+	LBRACKET  = "["
+	RBRACKET  = "]"
 	LT        = "<"
 	GT        = ">"
 

@@ -50,6 +50,9 @@ func (l *Lexer) NextToken() token.Token {
 		} else {
 			tok = token.NewToken(token.BANG, l.ch)
 		}
+	case '"':
+		tok.Type = token.STRING
+		tok.Literal = l.readString()
 	case '/':
 		tok = token.NewToken(token.SLASH, l.ch)
 	case '*':
@@ -64,6 +67,10 @@ func (l *Lexer) NextToken() token.Token {
 		tok = token.NewToken(token.LPAREN, l.ch)
 	case ')':
 		tok = token.NewToken(token.RPAREN, l.ch)
+	case '[':
+		tok = token.NewToken(token.LBRACKET, l.ch)
+	case ']':
+		tok = token.NewToken(token.RBRACKET, l.ch)
 	case ',':
 		tok = token.NewToken(token.COMMA, l.ch)
 	case '{':
@@ -93,6 +100,17 @@ func (l *Lexer) readIdentifier() string {
 	position := l.position
 	for isLetter(l.ch) {
 		l.readChar()
+	}
+	return l.input[position:l.position]
+}
+
+func (l *Lexer) readString() string {
+	position := l.position + 1
+	for {
+		l.readChar()
+		if l.ch == '"' {
+			break
+		}
 	}
 	return l.input[position:l.position]
 }
